@@ -11,7 +11,7 @@ Installation
 
 Install the plugin the same way as any standard Moodle plugin, either via the Moodle Plugin Directory or by cloning the repository into your Moodle source code:
 
-    `git clone git@github.com:vithushau/moodle-tiny_accordion.git lib/editor/tiny/plugins/accordion`
+    `git clone git@github.com:catalyst/moodle-tiny_accordion.git lib/editor/tiny/plugins/accordion`
 
 
 
