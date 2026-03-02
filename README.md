@@ -1,4 +1,4 @@
-[![ci](https://github.com/catalyst/moodle-tiny_accordion/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/catalyst/moodle-tiny_accordion/actions/workflows/ci.yml?branch=main)
+[![ci](https://github.com/catalyst/moodle-tiny_accordion/actions/workflows/ci.yml/badge.svg?branch=MOODLE_405_STABLE)](https://github.com/catalyst/moodle-tiny_accordion/actions/workflows/ci.yml?branch=MOODLE_405_STABLE)
 
 moodle-tiny_accordion
 =====================
@@ -17,7 +17,7 @@ Branches
 
 | Moodle version    | Branch             |
 | ----------------- | ------------------ |
-| Moodle 4.5  | `main` |
+| Moodle 4.5  | `MOODLE_405_STABLE` |
 
 Installation
 ------------
