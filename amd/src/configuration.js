@@ -21,10 +21,11 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-import { addMenubarItem } from 'editor_tiny/utils';
+import {addToolbarButton, addMenubarItem} from 'editor_tiny/utils';
 
 // These are native TinyMCE 6 accordion button names.
-const accordionMenuItem = 'accordion';
+const accordionButton = 'accordion';
+const accordionRemoveButton = 'accordionremove';
 
 export const configure = (instanceConfig) => {
     return {
@@ -33,6 +34,10 @@ export const configure = (instanceConfig) => {
         details_initial_state: 'expanded',
         // eslint-disable-next-line camelcase
         details_serialized_state: 'collapsed',
-        menu: addMenubarItem(instanceConfig.menu, 'insert', accordionMenuItem),
+        toolbar: addToolbarButton(
+            addToolbarButton(instanceConfig.toolbar, 'content', accordionButton),
+            'content', accordionRemoveButton
+        ),
+        menu: addMenubarItem(instanceConfig.menu, 'insert', `${accordionButton} ${accordionRemoveButton}`),
     };
 };

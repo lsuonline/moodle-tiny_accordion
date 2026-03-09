@@ -14,7 +14,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Tiny tiny_accordion for Moodle.
+ * Tiny accordion for Moodle.
  *
  * @module      tiny_accordion/plugin
  * @copyright   2026 Catalyst IT Australia
