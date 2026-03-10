@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,20 +12,30 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin strings are defined here.
+ * Tiny accordion settings file.
  *
  * @package     tiny_accordion
- * @category    string
  * @copyright   2026 Catalyst IT Australia
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Accordion';
-$string['privacy:metadata'] = 'The tiny_accordion plugin does not store any personal data.';
-$string['settings_showtoolbaricons'] = 'Show accordion icons in toolbar';
-$string['settings_showtoolbaricons_desc'] = 'Display the accordion buttons in the TinyMCE toolbar.';
+if ($hassiteconfig) {
+    $settings = new admin_settingpage(
+        'tiny_accordion_settings',
+        new lang_string('pluginname', 'tiny_accordion')
+    );
+
+    if ($ADMIN->fulltree) {
+        $settings->add(new admin_setting_configcheckbox(
+            'tiny_accordion/showtoolbaricons',
+            new lang_string('settings_showtoolbaricons', 'tiny_accordion'),
+            new lang_string('settings_showtoolbaricons_desc', 'tiny_accordion'),
+            1
+        ));
+    }
+}

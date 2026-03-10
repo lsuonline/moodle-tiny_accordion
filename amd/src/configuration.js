@@ -22,22 +22,46 @@
  */
 
 import {addToolbarButton, addMenubarItem} from 'editor_tiny/utils';
+import {getInitialPluginConfiguration, getPluginOptionName} from 'editor_tiny/options';
+import {pluginName} from './common';
 
 // These are native TinyMCE 6 accordion button names.
 const accordionButton = 'accordion';
 const accordionRemoveButton = 'accordionremove';
 
-export const configure = (instanceConfig) => {
-    return {
+/**
+ * Whether the accordion toolbar icons should be shown.
+ *
+ * @param {Object} options The editor options
+ * @returns {boolean}
+ */
+const showToolbarIcons = (options) => {
+    const optionName = getPluginOptionName(pluginName, 'showtoolbaricons');
+    const config = getInitialPluginConfiguration(options);
+    return config[optionName] ?? true;
+};
+
+export const configure = (instanceConfig, options) => {
+    if (!instanceConfig) {
+        return {};
+    }
+
+    const pluginsConfig = {
         plugins: `${instanceConfig.plugins} accordion`,
         // eslint-disable-next-line camelcase
         details_initial_state: 'expanded',
         // eslint-disable-next-line camelcase
         details_serialized_state: 'collapsed',
-        toolbar: addToolbarButton(
-            addToolbarButton(instanceConfig.toolbar, 'content', accordionButton),
-            'content', accordionRemoveButton
-        ),
         menu: addMenubarItem(instanceConfig.menu, 'insert', `${accordionButton} ${accordionRemoveButton}`),
     };
+
+    // Only add toolbar icons if enabled in settings.
+    if (showToolbarIcons(options)) {
+        pluginsConfig.toolbar = addToolbarButton(
+            addToolbarButton(instanceConfig.toolbar, 'content', accordionButton),
+            'content', accordionRemoveButton
+        );
+    }
+
+    return pluginsConfig;
 };

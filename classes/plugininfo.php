@@ -44,6 +44,8 @@ class plugininfo extends plugin implements plugin_with_configuration {
         array $fpoptions,
         ?editor $editor = null
     ): array {
-        return [];
+        return [
+            'showtoolbaricons' => get_config('tiny_accordion', 'showtoolbaricons') !== '0',
+        ];
     }
 }
