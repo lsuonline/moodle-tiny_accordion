@@ -32,6 +32,7 @@ $string['settings_showremoveicon_desc'] = 'Display the remove accordion button i
 $string['settings_showtoolbaricons'] = 'Show accordion icons in toolbar';
 $string['settings_showtoolbaricons_desc'] = 'Display the accordion buttons in the TinyMCE toolbar.';
 $string['settings_toolbargroup'] = 'Toolbar group';
+$string['settings_toolbargroup_advanced'] = 'Advanced';
 $string['settings_toolbargroup_content'] = 'Content';
 $string['settings_toolbargroup_desc'] = 'Select which toolbar group the accordion icons appear in. Only applies when accordion icons are enabled.';
 $string['settings_toolbargroup_formatting'] = 'Formatting';

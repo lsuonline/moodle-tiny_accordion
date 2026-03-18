@@ -21,7 +21,7 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-import {addToolbarButton, addMenubarItem} from 'editor_tiny/utils';
+import {addToolbarButton, addToolbarSection, addMenubarItem} from 'editor_tiny/utils';
 import {getInitialPluginConfiguration, getPluginOptionName} from 'editor_tiny/options';
 import {pluginName} from './common';
 
@@ -31,6 +31,8 @@ const accordionRemoveButton = 'accordionremove';
 
 // Default toolbar group if none configured.
 const defaultToolbarGroup = 'content';
+const advancedGroup = 'advanced';
+const accordionSection = 'accordion';
 
 /**
  * Whether both accordion toolbar icons should be shown.
@@ -69,6 +71,35 @@ const getToolbarGroup = (options) => {
     return config[optionName] ?? defaultToolbarGroup;
 };
 
+/**
+ * Insert accordion buttons into the toolbar.
+ *
+ * @param {array} instanceToolbar The current toolbar configuration
+ * @param {Object} options The editor options
+ * @returns {array}
+ */
+const buildToolbar = (instanceToolbar, options) => {
+    const toolbarGroup = getToolbarGroup(options);
+    const includeRemove = showRemoveIcon(options);
+
+    if (toolbarGroup === advancedGroup) {
+        // Create a new dedicated section after the advanced group.
+        let toolbar = addToolbarSection(instanceToolbar, accordionSection, advancedGroup, true);
+        toolbar = addToolbarButton(toolbar, accordionSection, accordionButton);
+        if (includeRemove) {
+            toolbar = addToolbarButton(toolbar, accordionSection, accordionRemoveButton);
+        }
+        return toolbar;
+    }
+
+    // Add directly to the existing toolbar group.
+    let toolbar = addToolbarButton(instanceToolbar, toolbarGroup, accordionButton);
+    if (includeRemove) {
+        toolbar = addToolbarButton(toolbar, toolbarGroup, accordionRemoveButton);
+    }
+    return toolbar;
+};
+
 export const configure = (instanceConfig, options) => {
     if (!instanceConfig) {
         return {};
@@ -86,15 +117,7 @@ export const configure = (instanceConfig, options) => {
 
     // Only add toolbar icons if showtoolbaricons is enabled.
     if (showToolbarIcons(options)) {
-        const toolbarGroup = getToolbarGroup(options);
-        let toolbar = addToolbarButton(instanceConfig.toolbar, toolbarGroup, accordionButton);
-
-        // Only add remove icon if showremoveicon is also enabled.
-        if (showRemoveIcon(options)) {
-            toolbar = addToolbarButton(toolbar, toolbarGroup, accordionRemoveButton);
-        }
-
-        pluginsConfig.toolbar = toolbar;
+        pluginsConfig.toolbar = buildToolbar(instanceConfig.toolbar, options);
     }
 
     return pluginsConfig;

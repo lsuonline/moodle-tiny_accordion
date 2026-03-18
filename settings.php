@@ -54,6 +54,7 @@ if ($hassiteconfig) {
             new lang_string('settings_toolbargroup_desc', 'tiny_accordion'),
             'content',
             [
+                'advanced'    => new lang_string('settings_toolbargroup_advanced', 'tiny_accordion'),
                 'content'     => new lang_string('settings_toolbargroup_content', 'tiny_accordion'),
                 'formatting'  => new lang_string('settings_toolbargroup_formatting', 'tiny_accordion'),
                 'lists'       => new lang_string('settings_toolbargroup_lists', 'tiny_accordion'),
