@@ -29,8 +29,11 @@ import {pluginName} from './common';
 const accordionButton = 'accordion';
 const accordionRemoveButton = 'accordionremove';
 
+// Default toolbar group if none configured.
+const defaultToolbarGroup = 'content';
+
 /**
- * Whether the accordion toolbar icons should be shown.
+ * Whether both accordion toolbar icons should be shown.
  *
  * @param {Object} options The editor options
  * @returns {boolean}
@@ -41,11 +44,37 @@ const showToolbarIcons = (options) => {
     return config[optionName] ?? true;
 };
 
+/**
+ * Whether the remove accordion icon should be shown.
+ * Only applies when showToolbarIcons is true.
+ *
+ * @param {Object} options The editor options
+ * @returns {boolean}
+ */
+const showRemoveIcon = (options) => {
+    const optionName = getPluginOptionName(pluginName, 'showremoveicon');
+    const config = getInitialPluginConfiguration(options);
+    return config[optionName] ?? true;
+};
+
+/**
+ * Get the toolbar group the accordion icons should appear in.
+ *
+ * @param {Object} options The editor options
+ * @returns {string}
+ */
+const getToolbarGroup = (options) => {
+    const optionName = getPluginOptionName(pluginName, 'toolbargroup');
+    const config = getInitialPluginConfiguration(options);
+    return config[optionName] ?? defaultToolbarGroup;
+};
+
 export const configure = (instanceConfig, options) => {
     if (!instanceConfig) {
         return {};
     }
 
+    // Always register the accordion plugin so existing content renders correctly.
     const pluginsConfig = {
         plugins: `${instanceConfig.plugins} accordion`,
         // eslint-disable-next-line camelcase
@@ -55,12 +84,17 @@ export const configure = (instanceConfig, options) => {
         menu: addMenubarItem(instanceConfig.menu, 'insert', `${accordionButton} ${accordionRemoveButton}`),
     };
 
-    // Only add toolbar icons if enabled in settings.
+    // Only add toolbar icons if showtoolbaricons is enabled.
     if (showToolbarIcons(options)) {
-        pluginsConfig.toolbar = addToolbarButton(
-            addToolbarButton(instanceConfig.toolbar, 'content', accordionButton),
-            'content', accordionRemoveButton
-        );
+        const toolbarGroup = getToolbarGroup(options);
+        let toolbar = addToolbarButton(instanceConfig.toolbar, toolbarGroup, accordionButton);
+
+        // Only add remove icon if showremoveicon is also enabled.
+        if (showRemoveIcon(options)) {
+            toolbar = addToolbarButton(toolbar, toolbarGroup, accordionRemoveButton);
+        }
+
+        pluginsConfig.toolbar = toolbar;
     }
 
     return pluginsConfig;

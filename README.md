@@ -27,6 +27,18 @@ Install the plugin the same way as any standard Moodle plugin (https://docs.mood
     `git clone git@github.com:catalyst/moodle-tiny_accordion.git lib/editor/tiny/plugins/accordion`
 
 
+Settings
+------------
+Once installed, the plugin can be configured under **Site Administration → Plugins → Text editors → TinyMCE editor → Accordion**.
+ 
+| Setting | Description | Default |
+| ------- | ----------- | ------- |
+| **Show accordion icons in toolbar** | Display both the accordion and remove accordion buttons in the TinyMCE toolbar. | Yes |
+| **Show remove accordion icon in toolbar** | Display the remove accordion button in the TinyMCE toolbar. Only applies when accordion icons are enabled. | Yes |
+| **Toolbar group** | Select which toolbar group the accordion icons appear in. Only applies when accordion icons are enabled. | Content |
+ 
+> **Note:** Disabling the accordion icons only hides the toolbar buttons. The accordion plugin remains active so that existing accordion content continues to render correctly in the editor.
+
 References
 ------------
 

@@ -27,5 +27,14 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Accordion';
 $string['privacy:metadata'] = 'The tiny_accordion plugin does not store any personal data.';
+$string['settings_showremoveicon'] = 'Show remove accordion icon in toolbar';
+$string['settings_showremoveicon_desc'] = 'Display the remove accordion button in the TinyMCE toolbar. Only applies when accordion icons are enabled.';
 $string['settings_showtoolbaricons'] = 'Show accordion icons in toolbar';
 $string['settings_showtoolbaricons_desc'] = 'Display the accordion buttons in the TinyMCE toolbar.';
+$string['settings_toolbargroup'] = 'Toolbar group';
+$string['settings_toolbargroup_content'] = 'Content';
+$string['settings_toolbargroup_desc'] = 'Select which toolbar group the accordion icons appear in. Only applies when accordion icons are enabled.';
+$string['settings_toolbargroup_formatting'] = 'Formatting';
+$string['settings_toolbargroup_indentation'] = 'Indentation';
+$string['settings_toolbargroup_lists'] = 'Lists';
+$string['settings_toolbargroup_view'] = 'View';

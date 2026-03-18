@@ -31,11 +31,35 @@ if ($hassiteconfig) {
     );
 
     if ($ADMIN->fulltree) {
+        // Show or hide both accordion toolbar icons.
         $settings->add(new admin_setting_configcheckbox(
             'tiny_accordion/showtoolbaricons',
             new lang_string('settings_showtoolbaricons', 'tiny_accordion'),
             new lang_string('settings_showtoolbaricons_desc', 'tiny_accordion'),
             1
+        ));
+
+        // Show or hide the remove accordion icon only.
+        $settings->add(new admin_setting_configcheckbox(
+            'tiny_accordion/showremoveicon',
+            new lang_string('settings_showremoveicon', 'tiny_accordion'),
+            new lang_string('settings_showremoveicon_desc', 'tiny_accordion'),
+            1
+        ));
+
+        // Select which toolbar group the accordion icons appear in.
+        $settings->add(new admin_setting_configselect(
+            'tiny_accordion/toolbargroup',
+            new lang_string('settings_toolbargroup', 'tiny_accordion'),
+            new lang_string('settings_toolbargroup_desc', 'tiny_accordion'),
+            'content',
+            [
+                'content'     => new lang_string('settings_toolbargroup_content', 'tiny_accordion'),
+                'formatting'  => new lang_string('settings_toolbargroup_formatting', 'tiny_accordion'),
+                'lists'       => new lang_string('settings_toolbargroup_lists', 'tiny_accordion'),
+                'indentation' => new lang_string('settings_toolbargroup_indentation', 'tiny_accordion'),
+                'view'        => new lang_string('settings_toolbargroup_view', 'tiny_accordion'),
+            ]
         ));
     }
 }

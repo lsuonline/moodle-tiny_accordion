@@ -45,7 +45,13 @@ class plugininfo extends plugin implements plugin_with_configuration {
         ?editor $editor = null
     ): array {
         return [
+            // Controls visibility of both accordion toolbar icons.
             'showtoolbaricons' => get_config('tiny_accordion', 'showtoolbaricons') !== '0',
+            // Controls visibility of the remove accordion icon only.
+            // Only applies when showtoolbaricons is true.
+            'showremoveicon'   => get_config('tiny_accordion', 'showremoveicon') !== '0',
+            // Controls which toolbar group the accordion icons appear in.
+            'toolbargroup'     => get_config('tiny_accordion', 'toolbargroup') ?: 'content',
         ];
     }
 }
