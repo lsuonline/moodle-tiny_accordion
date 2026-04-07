@@ -62,5 +62,20 @@ if ($hassiteconfig) {
                 'view'        => new lang_string('settings_toolbargroup_view', 'tiny_accordion'),
             ]
         ));
+
+        $settings->add(new admin_setting_configcheckbox(
+            'tiny_accordion/allowinlinestyle',
+            new lang_string('settings_allowinlinestyle', 'tiny_accordion'),
+            new lang_string('settings_allowinlinestyle_desc', 'tiny_accordion'),
+            0
+        ));
+
+        $settings->add(new admin_setting_configtext(
+            'tiny_accordion/classprefixallowlist',
+            new lang_string('settings_classprefixallowlist', 'tiny_accordion'),
+            new lang_string('settings_classprefixallowlist_desc', 'tiny_accordion'),
+            '',
+            PARAM_RAW
+        ));
     }
 }

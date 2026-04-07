@@ -19,7 +19,9 @@ namespace tiny_accordion;
 use context;
 use editor_tiny\editor;
 use editor_tiny\plugin;
+use editor_tiny\plugin_with_buttons;
 use editor_tiny\plugin_with_configuration;
+use editor_tiny\plugin_with_menuitems;
 
 /**
  * Tiny tiny_accordion plugin for Moodle.
@@ -28,7 +30,26 @@ use editor_tiny\plugin_with_configuration;
  * @copyright   2026 Catalyst IT Australia
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class plugininfo extends plugin implements plugin_with_configuration {
+class plugininfo extends plugin implements plugin_with_buttons, plugin_with_configuration, plugin_with_menuitems {
+
+    /**
+     * @return string[]
+     */
+    public static function get_available_buttons(): array {
+        return [
+            'tiny_accordion/accordionattributes',
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function get_available_menuitems(): array {
+        return [
+            'tiny_accordion/accordionattributes',
+        ];
+    }
+
     /**
      * Whether the plugin and its characteristics are enabled.
      *
@@ -52,6 +73,10 @@ class plugininfo extends plugin implements plugin_with_configuration {
             'showremoveicon'   => get_config('tiny_accordion', 'showremoveicon') !== '0',
             // Controls which toolbar group the accordion icons appear in.
             'toolbargroup'     => get_config('tiny_accordion', 'toolbargroup') ?: 'content',
+            // Allow inline style fields in the accordion attributes dialog (classes are always allowed).
+            'allowinlinestyle' => get_config('tiny_accordion', 'allowinlinestyle') === '1',
+            // Comma-separated class prefixes; empty = any class allowed (subject to HTMLPurifier).
+            'classprefixallowlist' => (string) (get_config('tiny_accordion', 'classprefixallowlist') ?? ''),
         ];
     }
 }
