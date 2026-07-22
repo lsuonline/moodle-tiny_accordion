@@ -23,3 +23,6 @@
 
 export const component = 'tiny_accordion';
 export const pluginName = `${component}/plugin`;
+
+/** @type {string} Toolbar / menu id for accordion class & style editing. */
+export const attributesButtonName = 'accordionattributes';

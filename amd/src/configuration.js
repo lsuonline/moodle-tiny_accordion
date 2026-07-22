@@ -23,11 +23,14 @@
 
 import {addToolbarButton, addToolbarSection, addMenubarItem} from 'editor_tiny/utils';
 import {getInitialPluginConfiguration, getPluginOptionName} from 'editor_tiny/options';
-import {pluginName} from './common';
+import {attributesButtonName, pluginName} from './common';
 
 // These are native TinyMCE 6 accordion button names.
 const accordionButton = 'accordion';
 const accordionRemoveButton = 'accordionremove';
+
+/** @type {string} Extra schema rules so class/style survive on accordion elements. */
+const accordionExtendedValidElements = 'details[class|style|id|open|dir|title|lang],summary[class|style|id|dir|title|lang]';
 
 // Default toolbar group if none configured.
 const defaultToolbarGroup = 'content';
@@ -89,6 +92,7 @@ const buildToolbar = (instanceToolbar, options) => {
         if (includeRemove) {
             toolbar = addToolbarButton(toolbar, accordionSection, accordionRemoveButton);
         }
+        toolbar = addToolbarButton(toolbar, accordionSection, attributesButtonName);
         return toolbar;
     }
 
@@ -97,6 +101,7 @@ const buildToolbar = (instanceToolbar, options) => {
     if (includeRemove) {
         toolbar = addToolbarButton(toolbar, toolbarGroup, accordionRemoveButton);
     }
+    toolbar = addToolbarButton(toolbar, toolbarGroup, attributesButtonName);
     return toolbar;
 };
 
@@ -105,6 +110,13 @@ export const configure = (instanceConfig, options) => {
         return {};
     }
 
+    let extendedValid = instanceConfig.extended_valid_elements || '';
+    if (extendedValid.indexOf('details[') === -1) {
+        extendedValid = extendedValid ? `${extendedValid},${accordionExtendedValidElements}` : accordionExtendedValidElements;
+    }
+
+    const insertMenuItems = `${accordionButton} ${accordionRemoveButton} ${attributesButtonName}`;
+
     // Always register the accordion plugin so existing content renders correctly.
     const pluginsConfig = {
         plugins: `${instanceConfig.plugins} accordion`,
@@ -112,7 +124,9 @@ export const configure = (instanceConfig, options) => {
         details_initial_state: 'expanded',
         // eslint-disable-next-line camelcase
         details_serialized_state: 'collapsed',
-        menu: addMenubarItem(instanceConfig.menu, 'insert', `${accordionButton} ${accordionRemoveButton}`),
+        // eslint-disable-next-line camelcase
+        extended_valid_elements: extendedValid,
+        menu: addMenubarItem(instanceConfig.menu, 'insert', insertMenuItems),
     };
 
     // Only add toolbar icons if showtoolbaricons is enabled.
